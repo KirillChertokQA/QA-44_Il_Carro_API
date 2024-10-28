@@ -45,28 +45,25 @@ public class AddNewCarTestsOkHttp implements Base_Api {
     }
 
     @Test
-    public void addNewCarPositiveTest(){
-        int i = new Random().nextInt(1000)+1000;
-
+    public void addNewCarPositiveTest() {
+        int i = new Random().nextInt(1000) + 1000;
         CarDto car = CarDto.builder()
                 .serialNumber("333-"+i)
-                .manufacture("BMW")
-                .model("X5")
-                .year("2021")
+                .manufacture("Opel")
+                .model("Astra")
+                .year("2020")
                 .fuel(Fuel.DIESEL.getFuel())
-                .seats(5)
-                .carClass("C")
-                .pricePerDay(100.12)
-                .city("Tel-Aviv")
+                .seats(4)
+                .carClass("A")
+                .pricePerDay(100.23)
+                .city("Haifa")
                 .build();
-
-        RequestBody requestBody = RequestBody.create(GSON.toJson(car), JSON);
+        RequestBody requestBody = RequestBody.create(GSON.toJson(car),JSON);
         Request request = new Request.Builder()
-                .url(BASE_URL+ADD_NEW_CAR_CLIENT)
+                .url(BASE_URL+ADD_NEW_CAR_URL)
                 .addHeader("Authorization", token.getAccessToken())
                 .post(requestBody)
                 .build();
-
         Response response;
         String responseBody;
         try {
@@ -74,7 +71,7 @@ public class AddNewCarTestsOkHttp implements Base_Api {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (response.code() == 200){
+        if (response.code() ==200){
             try {
                 responseBody = response.body().string();
             } catch (IOException e) {
@@ -82,9 +79,9 @@ public class AddNewCarTestsOkHttp implements Base_Api {
             }
             ResponseMessageDto responseMessageDto = GSON.fromJson(responseBody, ResponseMessageDto.class);
             System.out.println(responseMessageDto);
-            Assert.assertEquals(responseMessageDto.getMessage(), "Car added successfully");
+            Assert.assertEquals(responseMessageDto.getMessage(),"Car added successfully");
         }else
-            Assert.fail("Error, response code ---> " + response.code());
+            Assert.fail("Error, response code--->" + response.code());
         Assert.assertTrue(response.isSuccessful());
 
     }
