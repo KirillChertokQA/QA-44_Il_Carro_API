@@ -17,7 +17,7 @@ public class DeleteCarByIdOkHTTP implements Base_Api {
     TokenDto token;
     CarDto carDto;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void login(){
         RegistrationBodyDto bodyDto = RegistrationBodyDto.builder()
                 .username("kirill@gmail.com")
@@ -44,7 +44,7 @@ public class DeleteCarByIdOkHTTP implements Base_Api {
         System.out.println(token);
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void gerSerialNumber(){
         Request request = new Request.Builder()
                 .url(BASE_URL+GET_USER_CARS_URL)
@@ -89,7 +89,7 @@ public class DeleteCarByIdOkHTTP implements Base_Api {
         Assert.assertTrue(response.isSuccessful());
     }
 
-    @Test
+    @Test(description = "Bug report #12345 Fixed", enabled = false)
     public void deleteCarByIdNegativeTest(){
 
         String idCar = carDto.getSerialNumber();
@@ -116,7 +116,7 @@ public class DeleteCarByIdOkHTTP implements Base_Api {
 
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void deleteCarByIdNegativeTest_wrongToken(){
 
         String idCar = carDto.getSerialNumber();

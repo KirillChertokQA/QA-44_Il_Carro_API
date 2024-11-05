@@ -5,7 +5,6 @@ import interfaces.Base_Api;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,7 +16,7 @@ public class AddNewCarTestsOkHttp implements Base_Api {
 
     TokenDto token;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void login(){
         RegistrationBodyDto bodyDto = RegistrationBodyDto.builder()
                 .username("kirill@gmail.com")
@@ -44,7 +43,7 @@ public class AddNewCarTestsOkHttp implements Base_Api {
         System.out.println(token);
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void addNewCarPositiveTest() {
         int i = new Random().nextInt(1000) + 1000;
         CarDto car = CarDto.builder()
